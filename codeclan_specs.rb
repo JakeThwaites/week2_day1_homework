@@ -81,9 +81,55 @@ class TestTeam < Minitest::Test
 
 end
 
-asdf
+class TestLibrary < Minitest::Test
 
+    def test_find_book_by_title__book_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      assert_equal({title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, library.find_book_by_title("Harry Potter"))
+    end
+
+    def test_find_book_by_title__book__not_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      assert_equal(nil, library.find_book_by_title("The Very Hungry Caterpillar"))
+    end
+
+    def test_find_rental_details_by_title__book_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      rental_details = {student: "Borna", due_date: "22/10/2018"}
+      assert_equal(rental_details, library.find_rental_details_by_title("Harry Potter") )
+    end
+
+    def test_find_rental_details_by_title__book_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      assert_equal(nil, library.find_rental_details_by_title("The Very Hungry Caterpillar") )
+    end
+
+    def test_add_new_book
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      library_with_new_book = [{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}, {title: "The Very Hungry Caterpillar", rental_details: {student: "", due_date: ""}}]
+      assert_equal(library_with_new_book, library.add_new_book("The Very Hungry Caterpillar"))
+    end
+
+    def test_change_rental_details__book_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      new_library_details = [{title: "Harry Potter", rental_details: {student: "Jake", due_date: "23/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}]
+      assert_equal(new_library_details, library.change_rental_details("Harry Potter", "Jake", "23/10/2018"))
+    end
+
+    def test_change_rental_details__book_not_found
+      library = Library.new([{title: "Harry Potter", rental_details: {student: "Borna", due_date: "22/10/2018"}}, {title: "Lord of the Rings", rental_details: {student: "Jake", due_date: "19/04/2018"}}])
+      assert_equal("BOOK NOT FOUND", library.change_rental_details("Bob the Builder", "Jake", "23/10/2018"))
+    end
+
+end
 
 
 # ..DEPRECATED: Use assert_nil if expecting nil from codeclan_specs.rb:69. This will fail in Minitest 6.
 # .........
+
+
+# Create a getter for the books
+# Create a method that takes in a book title and returns all of the information about that book.
+# Create a method that takes in a book title and returns only the rental details for that book.
+# Create a method that takes in a book title and adds it to our book list (add a new hash for the book with the student name and date being left as empty strings)
+# Create a method that changes the rental details of a book by taking in the title of the book, the student renting it and the date it's due to be returned.

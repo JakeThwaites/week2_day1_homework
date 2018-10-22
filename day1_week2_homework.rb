@@ -66,3 +66,54 @@ end
     @points += points
   end
  end
+
+
+
+
+
+
+
+
+
+
+class Library
+  attr_reader :books
+
+  def initialize(books)
+    @books = books
+  end
+
+  def find_book_by_title(book)
+    for book_title in @books
+      if book_title[:title] == book
+        return book_title
+      end
+    end
+    return nil
+  end
+
+  def find_rental_details_by_title(title)
+    for book in @books
+      if book[:title] == title
+        return book[:rental_details]
+      end
+    end
+    return nil
+  end
+
+  def add_new_book(title)
+    new_book = {title: title, rental_details: {student: "", due_date: ""}}
+    @books.push(new_book)
+  end
+
+  def change_rental_details(title, student_name, date)
+
+    for book in @books
+      if book[:title] == title
+        book[:rental_details][:student] = student_name
+        book[:rental_details][:due_date] = date
+      end
+    end
+  end
+
+end
