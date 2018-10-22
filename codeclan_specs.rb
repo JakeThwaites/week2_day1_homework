@@ -36,4 +36,53 @@ class TestCodeclanStudent < Minitest::Test
     assert_equal("I love Javascript!", student1.favourite("Javascript"))
   end
 
+
+
 end
+
+class TestTeam < Minitest::Test
+
+  def test_team_name
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    assert_equal("Manchester United", team.name)
+  end
+
+  def test_set_new_coach_name
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    team.set_coach_name("Mourinho")
+    assert_equal("Mourinho", team.coach)
+  end
+
+  def test_add_new_player
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    team.add_new_player("Scholes")
+    assert_equal(["Giggs", "Beckham", "Ronaldo", "Scholes"], team.players)
+  end
+
+  def test_find_player_by_name__player_found
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    assert_equal("Giggs", team.find_player_by_name("Giggs") )
+  end
+
+  def test_find_player_by_name__player_not_found
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    assert_equal(nil, team.find_player_by_name("Ferdinand") )
+  end
+
+  def test_win_or_lose__win
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    assert_equal(3, team.win_or_lose("win"))
+  end
+
+  def test_win_or_lose__lose
+    team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
+    assert_equal(0, team.win_or_lose("lose"))
+  end
+  
+end
+
+
+
+
+# ..DEPRECATED: Use assert_nil if expecting nil from codeclan_specs.rb:69. This will fail in Minitest 6.
+# .........
