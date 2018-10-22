@@ -78,9 +78,10 @@ class TestTeam < Minitest::Test
     team = Team.new("Manchester United", ["Giggs", "Beckham", "Ronaldo"], "Sir Alex Ferguson")
     assert_equal(0, team.win_or_lose("lose"))
   end
-  
+
 end
 
+asdf
 
 
 
